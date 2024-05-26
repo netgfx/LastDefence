@@ -134,7 +134,7 @@ export function UnitsSide(props: any) {
           actions[animationKey].play()
         }
         //
-        console.log(actions2[animationKey], actions2, actions, animationKey)
+
         if (actions2[animationKey]) {
           actions2[animationKey].timeScale = 1
           actions2[animationKey].reset()

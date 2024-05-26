@@ -17,13 +17,11 @@ export function Player() {
   const [finalNodes, setFinalNodes] = useState<any | null>(null)
 
   useEffect(() => {
-    console.log('NODES: ', nodes, nodes.root, scene)
     if (nodes && scene) {
       setFinalNodes(nodes)
     }
   }, [nodes, scene])
 
-  console.log(nodes)
   return (
     <>
       {scene && finalNodes && (
