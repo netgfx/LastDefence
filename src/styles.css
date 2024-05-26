@@ -1,0 +1,222 @@
+@import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=block');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #101010;
+}
+
+body {
+  font-family: 'UnifrakturCook', cursive;
+  /* background: aquamarine; */
+  /* background-color: #101010; */
+  overflow: hidden;
+}
+
+.unifrakturcook-bold {
+  font-family: 'UnifrakturCook', cursive;
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* MENU */
+.menu {
+  /* background-color: #101010; */
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 20vh;
+  gap: 40px;
+}
+
+.menu-title {
+  font-size: 74px;
+  color: ivory;
+  text-shadow: #fff 1px 0 10px;
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 8px 16px rgba(0, 0, 0, 0.2); */
+}
+
+.menu-score {
+  font-size: 42px;
+  text-shadow: #fff 1px 0 10px;
+  color: ivory;
+}
+
+.menu-btn {
+  width: 150px;
+  height: 48px;
+  border-radius: 4px;
+  border: 3px solid ivory;
+  box-shadow: 0 0px 10px rgba(0, 0, 0, 0.3), 0 0px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  cursor: pointer;
+  position: relative;
+}
+
+.menu-btn.disabled {
+  border: 3px solid #3f3f3f;
+  pointer-events:none;
+ cursor:not-allowed;
+}
+
+.menu-btn.disabled span {
+  color: #3f3f3f;
+
+}
+
+.menu-btn span {
+  color: ivory;
+  box-sizing: border-box;
+  font-size: 24px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.menu-btn:not(:has(.tooltip, .no-hover)):hover {
+  border: 3px solid #101010;
+  box-shadow: 0 0px 10px rgba(255, 255, 255, 0.8), 0 0px 10px rgba(255, 255, 255, 0.8);
+  background-color: ivory;
+  animate: all;
+}
+
+.menu-btn:not(:has(.tooltip, .no-hover)):hover span {
+  color: #101010;
+}
+
+footer {
+  position: fixed;
+  bottom: 10px;
+  color: ivory;
+  text-align: center;
+  width: 100vw;
+}
+
+.bg {
+  background-image: url("/bg_08.jpg");
+  object-fit: cover;
+  position: fixed;
+  width:100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+}
+
+/* MODAL */
+
+.modal {
+  /* This way it could be display flex or grid or whatever also. */
+  display: flex;
+  
+  /* Probably need media queries here */
+  width: 600px;
+  max-width: 100%;
+  
+  height: 250px;
+  overflow: hidden;
+  max-height: 100%;
+  background-color: rgba(255, 255, 255, 0.9);
+  position: fixed;
+  border-radius: 4px;
+  z-index: 100;
+  
+  left: 50%;
+  top: 50%;
+  
+  /* Use this for centering if unknown width/height */
+  transform: translate(-50%, -50%);
+  
+  /* If known, negative margins are probably better (less chance of blurry text). */
+  /* margin: -200px 0 0 -200px; */
+  
+ 
+  box-shadow: 0 0 60px 10px rgba(0, 0, 0, 0.9);
+}
+.closed {
+  display: none;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 50;
+  
+  background: rgba(0, 0, 0, 0.6);
+}
+.modal-guts {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  padding: 20px 30px 20px 20px;
+  display:flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Tooltip container */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+  pointer-events: all;
+  cursor:help;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+ 
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+}
+
+.modal-btn {
+  width: 100px;
+  height: 48px;
+  background:#101010;
+  border-radius: 4px;
+  align-self: center;
+  color:ivory;
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  align-content: center;
+  flex-direction: column;
+  cursor:pointer;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}

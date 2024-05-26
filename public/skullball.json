@@ -1,0 +1,52 @@
+{"frames": [
+
+{
+	"filename": "skullball1",
+	"frame": {"x":1,"y":1,"w":124,"h":220},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":124,"h":220},
+	"sourceSize": {"w":124,"h":220}
+},
+{
+	"filename": "skullball2",
+	"frame": {"x":1,"y":223,"w":124,"h":220},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":124,"h":220},
+	"sourceSize": {"w":124,"h":220}
+},
+{
+	"filename": "skullball3",
+	"frame": {"x":1,"y":445,"w":124,"h":220},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":124,"h":220},
+	"sourceSize": {"w":124,"h":220}
+},
+{
+	"filename": "skullball4",
+	"frame": {"x":1,"y":667,"w":124,"h":220},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":124,"h":220},
+	"sourceSize": {"w":124,"h":220}
+},
+{
+	"filename": "skullball5",
+	"frame": {"x":1,"y":889,"w":124,"h":220},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":124,"h":220},
+	"sourceSize": {"w":124,"h":220}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "skullball.png",
+	"format": "RGBA8888",
+	"size": {"w":126,"h":1110},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:61c82c9f475e12232b4e5119e4acdffe:45b0bc68033e013c34c7cbf94ac22fa1:1a25de803f4918080795f1478b1e79ee$"
+}
+}
