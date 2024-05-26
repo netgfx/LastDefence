@@ -81,7 +81,7 @@ export const InstancedEffectsFireMesh = ({ texture, textureData }: { texture: TH
         rotationMatrix.makeRotationFromEuler(rotation)
 
         // Combine the position and rotation matrices using multiplication
-        mat4.multiply(rotationMatrix, positionMatrix)
+        mat4.multiply(rotationMatrix)
 
         if (pos) {
           mat4.setPosition(pos.x, pos.y, pos.z)

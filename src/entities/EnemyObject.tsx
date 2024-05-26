@@ -134,7 +134,7 @@ const Enemy = forwardRef((props: any, ref) => {
     //const styleOffset = Math.round(Math.random() * 10)
     playSound()
     animationRef.current = gsap.to(enemyRef.current.position, {
-      y: (viewport?.height - 1 ?? 18) * -1,
+      y: ((viewport?.height ?? 18) - 1) * -1,
       ease: customEase, //styleOffset >= 5 ? 'power1.out' : 'power2.out',
       duration: duration * DROP_RATE, ///styleOffset >= 5 ? Math.round(4 / enemySpeed) : Math.round(6 / enemySpeed), // Adjust duration based on speed
       delay: 0.02, // Add 20ms delay

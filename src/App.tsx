@@ -1,4 +1,4 @@
-import { CameraControls, Grid, Loader, OrbitControls } from '@react-three/drei'
+import { CameraControls, Grid, Loader, useProgress } from '@react-three/drei'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import React, { Suspense, useEffect, useRef, useState } from 'react'
 import * as THREE from 'three'
@@ -191,6 +191,7 @@ export function Gameplay() {
   const mode = useGlobalStore((state: CoreState) => state.mode)
   const gameOver = useGlobalStore((state: CoreState) => state.gameOver)
   const setMaxScore = useGlobalStore((state: CoreState) => state.setCurrentMaxScore)
+  const { active, progress, errors, item, loaded, total } = useProgress()
   //
 
   // Function to change size
@@ -205,7 +206,7 @@ export function Gameplay() {
   useEffect(() => {
     let timeOut1: any = null
     let timeOut2: any = null
-    if (initFinished) {
+    if (initFinished && loaded) {
       timeOut1 = setTimeout(() => changeSize(), 2000)
       timeOut2 = setTimeout(() => {
         setInitManager(true)
@@ -219,7 +220,7 @@ export function Gameplay() {
       if (timeOut1) window.clearTimeout(timeOut1)
       if (timeOut2) window.clearTimeout(timeOut2)
     }
-  }, [initFinished])
+  }, [initFinished, loaded])
 
   useEffect(() => {
     if (gameOver) {
