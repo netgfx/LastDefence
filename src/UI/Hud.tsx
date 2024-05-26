@@ -1,8 +1,9 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Canvas, useThree } from '@react-three/fiber'
 import { Html } from '@react-three/drei'
 import * as THREE from 'three'
 import { CoreState, useGlobalStore } from '../state/globalState'
+import { GameOverModal } from './GameOverModal'
 
 const HUDElement = ({ position, children }) => {
   const { camera } = useThree()
@@ -21,7 +22,7 @@ const HUDElement = ({ position, children }) => {
 
   return (
     <Html ref={hudRef} calculatePosition={calculatePosition}>
-      <div style={{ position: 'absolute', top: 0, cursor: 'pointer', width: '100vw' }}>{children}</div>
+      <div style={{ position: 'absolute', left: 0, top: 0, cursor: 'pointer', width: '100vw', height: '100vh' }}>{children}</div>
     </Html>
   )
 }
@@ -32,6 +33,14 @@ const reloadPage = () => {
 
 export const HUDArea = () => {
   const currentScore = useGlobalStore((state: CoreState) => state.currentScore)
+  const gameOver = useGlobalStore((state: CoreState) => state.gameOver)
+  //
+  const [openModal, setOpenModal] = useState<boolean>(false)
+
+  useEffect(() => {
+    setOpenModal(gameOver)
+  }, [gameOver])
+
   return (
     <>
       <HUDElement position={[-1, 1, 0]}>
@@ -97,14 +106,10 @@ export const HUDArea = () => {
         </div>
       </HUDElement>
 
-      <HUDElement position={[-1, -1, 0]}>
-        {/* Bottom-left HUD element */}
-        <div style={{ position: 'absolute', bottom: '10px', left: '10px' }}>{/* Add your HUD content here */}</div>
-      </HUDElement>
-
-      <HUDElement position={[1, -1, 0]}>
-        {/* Bottom-right HUD element */}
-        <div style={{ position: 'absolute', bottom: '10px', right: '10px' }}>{/* Add your HUD content here */}</div>
+      <HUDElement position={[0, 0, 0]}>
+        <div style={{ position: 'absolute', width: '500px', height: '250px', top: '20vh', left: '50%', transform: 'translateX(-50%)' }}>
+          {openModal && <GameOverModal setModal={setOpenModal} />}
+        </div>
       </HUDElement>
     </>
   )

@@ -1,7 +1,11 @@
 import React from 'react'
 import { MdOutlineClose } from 'react-icons/md'
+import { CoreState, useGlobalStore } from '../state/globalState'
 
 export function Modal({ setModal }: { setModal: any }) {
+  // global Store
+  const setHasSeenInfo = useGlobalStore((state: CoreState) => state.setHasSeenInfo)
+  //
   const onClose = () => {
     setModal(false)
   }
@@ -19,10 +23,15 @@ export function Modal({ setModal }: { setModal: any }) {
         <h1>How to play</h1>
 
         <p style={{ lineHeight: '30px', fontSize: '22px' }}>
-          Click / Tap and hold for the middle knight to attack the incoming projectiles, release for the side Knights to attack. If a
+          ClicK / Tap and hold, for the middle Knight to defeat the incoming projectiles, release for the side Knights to attack. If a
           projectile goes through it is game over. Enjoy!
         </p>
-        <div className="modal-btn" onClick={onClose}>
+        <div
+          className="modal-btn"
+          onClick={() => {
+            onClose()
+            setHasSeenInfo(true)
+          }}>
           Got it!
         </div>
       </div>

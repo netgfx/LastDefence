@@ -143,13 +143,27 @@ footer {
   
   /* Use this for centering if unknown width/height */
   transform: translate(-50%, -50%);
-  
-  /* If known, negative margins are probably better (less chance of blurry text). */
-  /* margin: -200px 0 0 -200px; */
-  
- 
   box-shadow: 0 0 60px 10px rgba(0, 0, 0, 0.9);
 }
+
+.gameover-modal {
+  position: absolute;
+  height: 200px;
+  text-align: center;
+}
+
+.modal-bg {
+  position:absolute;
+  left:100vw;
+  top:100vh;
+  right:0;
+  bottom:0;
+  width:200vw;
+  height:calc(100vh + 55vw);
+  background: rgba(0, 0, 0, 0.7);
+  pointer-events: none;
+}
+
 .closed {
   display: none;
 }
@@ -214,6 +228,7 @@ footer {
   align-content: center;
   flex-direction: column;
   cursor:pointer;
+  font-size: 22px;
 }
 
 /* Show the tooltip text when you mouse over the tooltip container */

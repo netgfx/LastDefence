@@ -315,7 +315,8 @@ export function App() {
   const currentView = useGlobalStore((state: any) => state.currentView)
   // global state score reset
   const resetScore = useGlobalStore((state: CoreState) => state.resetCurrentScore)
-
+  const currentCacheKey = useGlobalStore((state: CoreState) => state.currentCacheKey)
+  //
   useEffect(() => {
     if (currentView !== 'MENU') {
       resetScore()
@@ -325,7 +326,7 @@ export function App() {
     <>
       <AudioComponent />
       <div style={{ fontFamily: "'UnifrakturCook',cursive", visibility: 'hidden', opacity: 0, position: 'fixed' }}>&nbsp;</div>
-      {currentView === 'MENU' ? <Menu /> : <Gameplay />}
+      {currentView === 'MENU' ? <Menu /> : <Gameplay key={currentCacheKey} />}
     </>
   )
 }

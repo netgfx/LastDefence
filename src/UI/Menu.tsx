@@ -10,8 +10,12 @@ export function Menu() {
   const setCurrentView = useGlobalStore((state: CoreState) => state.setCurrentView)
   const currentScore = useGlobalStore((state: CoreState) => state.maxScore)
   const currentHardScore = useGlobalStore((state: CoreState) => state.currentHardScore)
+  const hasSeenInfo = useGlobalStore((state: CoreState) => state.hasSeenInfo)
+  //
   const mode = useGlobalStore((state: CoreState) => state.mode)
-  const [openModal, setOpenModal] = useState<boolean>(true)
+  const setGameOver = useGlobalStore((state: CoreState) => state.setGameOver)
+  //
+  const [openModal, setOpenModal] = useState<boolean>(!hasSeenInfo)
   //
   useEffect(() => {
     if (currentScore) {
@@ -23,6 +27,7 @@ export function Menu() {
 
   const onPlay = () => {
     setCurrentView('GAMEPLAY')
+    setGameOver(false)
   }
 
   useEffect(() => {

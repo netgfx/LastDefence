@@ -2,6 +2,7 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import _ from 'lodash'
 import { VIEWS, ACTIONS, GAME_MODE } from '../core/types/types'
+import { CACHE_BUST } from '../helpers/constants'
 
 export interface CoreState {
   currentView: VIEWS
@@ -16,6 +17,10 @@ export interface CoreState {
   mode: GAME_MODE
   currentHardScore: number
   maxScore: number
+  currentCacheKey: number
+  hasSeenInfo: boolean
+  setHasSeenInfo: (value: boolean) => void
+  setCurrentCachKey: (value: number) => void
   resetCurrentScore: () => void
   setCurrentMaxScore: () => void
   setCurrentHardScore: (value: number) => void
@@ -47,6 +52,10 @@ export const useGlobalStore = create<CoreState>()(
       mode: 'NORMAL',
       currentHardScore: 0,
       maxScore: 0,
+      currentCacheKey: CACHE_BUST,
+      hasSeenInfo: false,
+      setHasSeenInfo: (value: boolean) => set({ hasSeenInfo: value }),
+      setCurrentCachKey: (value: number) => set({ currentCacheKey: value }),
       resetCurrentScore: () => set({ currentScore: 0 }),
       setCurrentMaxScore: () =>
         set((state: CoreState) => {
@@ -86,7 +95,7 @@ export const useGlobalStore = create<CoreState>()(
         //state.setInitFinished(false)
         state.initFinished = false
       },
-      partialize: (state) => ({ currentScore: state.currentScore, maxScore: state.maxScore })
+      partialize: (state) => ({ currentScore: state.currentScore, maxScore: state.maxScore, hasSeenInfo: state.hasSeenInfo })
     }
   )
 )

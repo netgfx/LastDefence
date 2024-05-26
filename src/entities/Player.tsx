@@ -6,12 +6,14 @@ import * as THREE from 'three'
 import { useGLTF } from '@react-three/drei'
 import React from 'react'
 import { CACHE_BUST } from '../helpers/constants'
+import { CoreState, useGlobalStore } from '../state/globalState'
 
 export function Player() {
   const unitRef = useRef<any | null>(null)
   const unitSideRef = useRef<any | null>(null)
   const unitSideRef2 = useRef<any | null>(null)
-  const { materials, nodes, animations, scene } = useGLTF(`/models/Knight.glb?id=${CACHE_BUST}`) as GLTFResult
+  const currentCacheKey = useGlobalStore((state: CoreState) => state.currentCacheKey)
+  const { materials, nodes, animations, scene } = useGLTF(`/models/Knight.glb?id=${currentCacheKey ?? CACHE_BUST}`) as GLTFResult
   const [finalNodes, setFinalNodes] = useState<any | null>(null)
 
   useEffect(() => {

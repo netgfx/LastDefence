@@ -10,6 +10,8 @@ import { useFrame, useThree } from '@react-three/fiber'
 import EventEmitterFn from '../utils/EventEmitter'
 import { gsap } from 'gsap'
 import { CACHE_BUST } from '../helpers/constants'
+import { CoreState } from '../state/globalState'
+import { useGlobalStore } from '../state/globalState'
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -130,7 +132,8 @@ type GLTFActions = Record<ActionName, THREE.AnimationAction>
 
 export function EnemyMage(props: JSX.IntrinsicElements['group']) {
   const group = useRef<THREE.Group>()
-  const { nodes, materials, animations } = useGLTF(`/models/Skeleton_Mage.glb?id=${CACHE_BUST}`) as GLTFResult
+  const currentCacheKey = useGlobalStore((state: CoreState) => state.currentCacheKey)
+  const { nodes, materials, animations } = useGLTF(`/models/Skeleton_Mage.glb?id=${currentCacheKey ?? CACHE_BUST}`) as GLTFResult
   const { viewport, size } = useThree()
   const { actions, mixer } = useAnimations<GLTFActions>(animations, group)
   const [currentAction, setCurrentAction] = useState<any | null>(-1)
