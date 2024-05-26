@@ -304,6 +304,7 @@ const AudioComponent = () => {
 
   useEffect(() => {
     if (audioReady) {
+      AudioManager.getInstance().stopLoop()
       AudioManager.getInstance().playTrack('bg', true)
     }
   }, [audioReady])
@@ -319,6 +320,7 @@ export function App() {
   //
   useEffect(() => {
     if (currentView !== 'MENU') {
+      AudioManager.getInstance().stopLoop()
       resetScore()
     }
   }, [currentView])
