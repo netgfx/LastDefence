@@ -3,12 +3,11 @@ import { MdOutlineClose } from 'react-icons/md'
 import { CoreState, useGlobalStore } from '../state/globalState'
 
 export function GameOverModal({ setModal }: { setModal: any }) {
-  const setCurrentView = useGlobalStore((state: CoreState) => state.setCurrentView)
   const setCurrentCacheKey = useGlobalStore((state: CoreState) => state.setCurrentCachKey)
   const onClose = () => {
     setModal(false)
     // reset the canvas key in order to reset it
-    setCurrentView('MENU')
+    window.location.reload()
     setCurrentCacheKey(Math.random() * 100000)
   }
 

@@ -117,6 +117,7 @@ export const InstancedEffectsFireMesh = ({ texture, textureData }: { texture: TH
     if (finalTime >= 0 && finalTime <= 1.0) {
       currentFrameIndex.current = 0
       paused.current = false
+      timerOffset.current = window.performance.now()
     } else {
       //paused.current = true
       reset()

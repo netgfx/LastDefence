@@ -5,6 +5,7 @@ import { useGSAP } from '@gsap/react'
 import { SpriteAnimator } from '@react-three/drei'
 import AudioManager from '../helpers/AudioManagerWeb'
 import { CoreState, useGlobalStore } from '../state/globalState'
+import { useThree } from '@react-three/fiber'
 
 const Enemy = forwardRef((props: any, ref) => {
   const enemyRef = useRef<any | null>(null)
@@ -16,9 +17,11 @@ const Enemy = forwardRef((props: any, ref) => {
   const [enemyTypeObj, setEnemyTypeObj] = useState<string>(enemyType)
   const { contextSafe } = useGSAP({ scope: enemyRef })
   const animationRef = useRef<any | null>(null)
-  const DROP_RATE = mode === 'NORMAL' ? 1.2 : 1.65
+  const DROP_RATE = mode === 'NORMAL' ? 1.5 : 1.65
   const MIN_LIMIT = mode === 'NORMAL' ? 850 : 600
   const MAX_LIMIT = mode === 'NORMAL' ? 1050 : 950
+
+  const { viewport } = useThree()
 
   const getEnemyRef = () => {
     return enemyRef.current
@@ -90,7 +93,7 @@ const Enemy = forwardRef((props: any, ref) => {
   }
 
   function getRandomRow() {
-    const rows = [-1, 0, 1, 2]
+    const rows = _.shuffle([-1, 0, 1, 2, 3])
     return _.sample(rows)
   }
 
@@ -103,7 +106,9 @@ const Enemy = forwardRef((props: any, ref) => {
     switch (row) {
       case 0: // Left row
         return { x: -10 }
-      case -1: // Middle row for equal chance
+      case -1: // Middle row
+        return { x: 0 }
+      case 3: // middle row for enhanced engagement
         return { x: 0 }
       case 1: // Middle row
         return { x: 0 }
@@ -129,10 +134,10 @@ const Enemy = forwardRef((props: any, ref) => {
     //const styleOffset = Math.round(Math.random() * 10)
     playSound()
     animationRef.current = gsap.to(enemyRef.current.position, {
-      y: -15.5,
+      y: (viewport?.height - 1 ?? 18) * -1,
       ease: customEase, //styleOffset >= 5 ? 'power1.out' : 'power2.out',
       duration: duration * DROP_RATE, ///styleOffset >= 5 ? Math.round(4 / enemySpeed) : Math.round(6 / enemySpeed), // Adjust duration based on speed
-      delay: 0.05, // Add 50ms delay
+      delay: 0.02, // Add 20ms delay
       onComplete: handleEnemyFinish
     })
   })

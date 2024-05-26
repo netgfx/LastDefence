@@ -169,7 +169,7 @@ export function UnitsSide(props: any) {
   }, [blockedSpell])
 
   useFrame(() => {
-    let isColliding = false
+    let isColliding: boolean = false
     const enemyPool = useGlobalStore.getState().enemyPool
     // collision check
     for (let i = 0; i < enemyPool.length; i++) {
@@ -202,9 +202,9 @@ export function UnitsSide(props: any) {
       if (currentAnimRef.current && currentAction === 'MAGE') {
         AudioManager.getInstance().playTrack('slash')
         //console.log(currentAnimRef.current.time)
-        if (currentAnimRef.current.time < 1.0) {
-          setSlashSidesFrameTime(currentAnimRef.current.time)
-        }
+        //if (currentAnimRef.current.time < 1.0) {
+        setSlashSidesFrameTime(currentAnimRef.current.time)
+        //}
       } else {
         setSlashSidesFrameTime(-1)
       }
