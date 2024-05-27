@@ -1,4 +1,4 @@
-import { Canvas, extend, useFrame, useThree } from '@react-three/fiber'
+import { useFrame, useThree } from '@react-three/fiber'
 import React, { useEffect, useMemo, useRef } from 'react'
 import * as THREE from 'three'
 
@@ -8,7 +8,7 @@ export function EffectMaterial({
   rows,
   columns
 }: {
-  map: THREE.Texture
+  map: THREE.Texture | null
   textureData: any
   rows?: number
   columns?: number
@@ -118,7 +118,7 @@ export function EffectMaterial({
   )
 
   useEffect(() => {
-    if (map && textureData !== undefined) {
+    if (map && textureData !== undefined && matRef.current) {
       map.minFilter = THREE.LinearFilter
       map.magFilter = THREE.LinearFilter
       map.wrapS = THREE.ClampToEdgeWrapping

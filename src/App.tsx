@@ -191,7 +191,7 @@ export function Gameplay() {
   const mode = useGlobalStore((state: CoreState) => state.mode)
   const gameOver = useGlobalStore((state: CoreState) => state.gameOver)
   const setMaxScore = useGlobalStore((state: CoreState) => state.setCurrentMaxScore)
-  const { active, progress, errors, item, loaded, total } = useProgress()
+  const { loaded } = useProgress()
   //
 
   // Function to change size
@@ -214,13 +214,18 @@ export function Gameplay() {
         AudioManager.getInstance().playTrack('main_bg', true)
       }, 4500)
     }
-    AudioManager.getInstance().playTrack('creepyBell')
 
     return () => {
       if (timeOut1) window.clearTimeout(timeOut1)
       if (timeOut2) window.clearTimeout(timeOut2)
     }
   }, [initFinished, loaded])
+
+  useEffect(() => {
+    if (initFinished) {
+      AudioManager.getInstance().playTrack('creepyBell')
+    }
+  }, [initFinished])
 
   useEffect(() => {
     if (gameOver) {

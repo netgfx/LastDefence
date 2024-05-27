@@ -10,6 +10,9 @@ import { CoreState, useGlobalStore } from '../../state/globalState'
 
 extend({ InstancedUniformsMesh })
 
+// handle scaling
+const geometry = new THREE.PlaneGeometry(1, 1)
+
 export const InstancedEffectsFireMesh = ({ texture, textureData }: { texture: THREE.Texture; textureData: any }) => {
   // the general "discovered" tiles
 
@@ -185,17 +188,8 @@ export const InstancedEffectsFireMesh = ({ texture, textureData }: { texture: TH
     }
   })
 
-  // handle scaling
-  const geometry = useMemo(() => new THREE.PlaneGeometry(1, 1), [])
-
   return (
     <>
-      {/* {hexTexture && (
-        <mesh geometry={geometry} position={[0, 2, 0]}>
-          <meshStandardMaterial map={hexTexture} transparent={true} />
-        </mesh>
-      )} */}
-
       <instancedUniformsMesh ref={meshRef} args={[geometry, null, 2]}>
         {/* awesome working texture */}
         <EffectMaterial attach="material" map={hexTexture} textureData={null} />
