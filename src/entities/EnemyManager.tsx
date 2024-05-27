@@ -18,7 +18,7 @@ export const EnemyManager = ({ init }: { init: boolean }) => {
   //const enemyPool = useRef<any[]>([])
   const timerOffset = 100
   const timerRef = useRef(3000)
-  const minTimer = 880
+  const minTimer = 500
   const currentTime = React.useRef(window.performance.now())
   //
   const { spriteObj } = useSpriteLoader(
@@ -100,8 +100,8 @@ export const EnemyManager = ({ init }: { init: boolean }) => {
 
   useEffect(() => {
     if (init) {
-      currentTime.current = window.performance.now()
       generateWave()
+      currentTime.current = window.performance.now()
     }
   }, [init])
 

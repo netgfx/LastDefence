@@ -17,7 +17,7 @@ const Enemy = forwardRef((props: any, ref) => {
   const [enemyTypeObj, setEnemyTypeObj] = useState<string>(enemyType)
   const { contextSafe } = useGSAP({ scope: enemyRef })
   const animationRef = useRef<any | null>(null)
-  const DROP_RATE = mode === 'NORMAL' ? 1.5 : 1.65
+  const DROP_RATE = mode === 'NORMAL' ? 1.7 : 1.65
   const MIN_LIMIT = mode === 'NORMAL' ? 850 : 600
   const MAX_LIMIT = mode === 'NORMAL' ? 1050 : 950
 
@@ -124,7 +124,7 @@ const Enemy = forwardRef((props: any, ref) => {
   }
 
   const animateEnemy = contextSafe(() => {
-    const velocity = gsap.utils.random(0.92, 0.69, true)
+    const velocity = gsap.utils.random(0.99, 0.8, true)
     const duration = velocity() // Duration based on initial velocity and window height
 
     // Define a custom ease function to simulate gravity
@@ -137,7 +137,7 @@ const Enemy = forwardRef((props: any, ref) => {
       y: ((viewport?.height ?? 18) - 1) * -1,
       ease: customEase, //styleOffset >= 5 ? 'power1.out' : 'power2.out',
       duration: duration * DROP_RATE, ///styleOffset >= 5 ? Math.round(4 / enemySpeed) : Math.round(6 / enemySpeed), // Adjust duration based on speed
-      delay: 0.02, // Add 20ms delay
+      delay: 0.05, // Add 20ms delay
       onComplete: handleEnemyFinish
     })
   })

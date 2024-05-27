@@ -60,7 +60,16 @@ export function Menu() {
           <div className={`menu-btn ${mode === 'NORMAL' ? 'disabled' : ''}`} onClick={onPlay}>
             <span>Play hard</span>
             <div className="tooltip" style={{ position: 'absolute', right: '-40px' }}>
-              <TbInfoHexagon className="no-hover" title="Hard mode is unlocked at 500 score. Coming soon!" color="ivory" size={24} />
+              <TbInfoHexagon
+                onClick={(e) => {
+                  e.preventDefault()
+                  e.stopPropagation()
+                }}
+                className="no-hover"
+                title="Hard mode is unlocked at 500 score. Coming soon!"
+                color="ivory"
+                size={24}
+              />
             </div>
           </div>
         </div>
