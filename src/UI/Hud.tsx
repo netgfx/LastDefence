@@ -115,7 +115,7 @@ export const HUDArea = () => {
         </div>
       </HUDElement>
 
-      <HUDElement position={[0, 0, 0]}>
+      <HUDElement position={[0, 0, 0]} zIndex={100}>
         <div style={{ position: 'absolute', width: '500px', height: '250px', top: '20vh', left: '50%', transform: 'translateX(-50%)' }}>
           {openModal && <GameOverModal setModal={setOpenModal} />}
         </div>
