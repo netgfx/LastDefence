@@ -90,7 +90,7 @@ export const useGlobalStore = create<CoreState>()(
       setCurrentView: (value: VIEWS) => set({ currentView: value })
     }),
     {
-      name: 'last-defence-game', // name of item in the storage (must be unique)
+      name: 'last-defense-game', // name of item in the storage (must be unique)
       onRehydrateStorage: (state) => {
         //state.setInitFinished(false)
         state.initFinished = false

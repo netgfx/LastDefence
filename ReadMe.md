@@ -1,4 +1,4 @@
-# Last Defence (a hyper-casual game with one tap)
+# Last Defense (a hyper-casual game with one tap)
 
 
 ### ToDo features

@@ -41,7 +41,7 @@ export function Menu() {
     <>
       <div className="bg">
         <div className="menu">
-          <div className="menu-title">Last Defence</div>
+          <div className="menu-title">Last Defense</div>
 
           {currentHardScore <= 0 && (
             <div className="menu-score">
