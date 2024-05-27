@@ -5,7 +5,7 @@ import * as THREE from 'three'
 import { CoreState, useGlobalStore } from '../state/globalState'
 import { GameOverModal } from './GameOverModal'
 
-const HUDElement = ({ position, children }) => {
+const HUDElement = ({ position, children, zIndex }: { position: any; children: any; zIndex: number }) => {
   const { camera } = useThree()
   const hudRef = useRef<any | null>(null)
 
@@ -21,13 +21,18 @@ const HUDElement = ({ position, children }) => {
   }
 
   return (
-    <Html ref={hudRef} calculatePosition={calculatePosition}>
-      <div style={{ position: 'absolute', left: 0, top: 0, cursor: 'pointer', width: '100vw', height: '100vh' }}>{children}</div>
+    <Html ref={hudRef} calculatePosition={calculatePosition} style={{ zIndex: `${zIndex ?? 0}` }} zIndexRange={[zIndex, 1]}>
+      <div style={{ position: 'absolute', left: 0, top: 0, cursor: 'pointer', width: '100vw', height: '100vh', zIndex: `${zIndex ?? 0}` }}>
+        {children}
+      </div>
     </Html>
   )
 }
 
-const reloadPage = () => {
+const reloadPage = (e: any) => {
+  console.log('clicked menu')
+  e.preventDefault()
+  e.stopPropagation()
   window.location.reload()
 }
 
@@ -43,10 +48,10 @@ export const HUDArea = () => {
 
   return (
     <>
-      <HUDElement position={[-1, 1, 0]}>
+      <HUDElement position={[-1, 1, 1]} zIndex={99}>
         {/* Top-left HUD element */}
         <div
-          onClick={reloadPage}
+          onMouseDown={reloadPage}
           style={{
             position: 'absolute',
             top: '10px',
@@ -58,23 +63,27 @@ export const HUDArea = () => {
             display: 'flex',
             justifyContent: 'center',
             border: '#101010',
-            borderRadius: '4px'
+            zIndex: 99,
+            borderRadius: '4px',
+            cursor: 'pointer'
           }}>
           <span style={{ fontSize: '24px' }}>Menu</span>
         </div>
       </HUDElement>
 
-      <HUDElement position={[-1, 1, 0]}>
+      <HUDElement position={[-1, 1, 1]}>
         {/* Top-right HUD element */}
         <div
           style={{
             position: 'absolute',
+            pointerEvents: 'none',
             top: '10px',
             right: '20px',
             backgroundColor: 'transparent',
             width: 'auto',
             height: '50px',
             borderRadius: '4px',
+            zIndex: 99,
             boxShadow: '0 0px 12px rgba(255, 255, 255, 0.8), 0 0px 12px rgba(255, 255, 255, 0.8)'
           }}>
           <div
