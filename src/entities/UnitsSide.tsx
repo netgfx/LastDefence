@@ -22,6 +22,7 @@ export function UnitsSide(props: any) {
   // global store
   const setSlashSidesFrameTime = useGlobalStore((state: CoreState) => state.setSlashSidesFrameTime)
   const currentAction = useGlobalStore((state: CoreState) => state.currentAction)
+  const currentActionKey = useRef<string>("Idle")
   const setSide1ModelRef = useGlobalStore((state: CoreState) => state.setSideModel1Ref)
   const setGameOver = useGlobalStore((state: CoreState) => state.setGameOver)
   const increaseCurrentScore = useGlobalStore((state: CoreState) => state.increaseCurrentScore)
@@ -47,6 +48,59 @@ export function UnitsSide(props: any) {
       group.current.position.set(-10, verticalPosition, 0)
       group2.current.position.set(10, verticalPosition, 0)
     }
+  }
+
+  const playSlash = () => {
+    mixer.stopAllAction()
+    mixer2.stopAllAction()
+    if (currentAction === 'MAGE') {
+      const animationKey = '1H_Melee_Attack_Slice_Diagonal'
+      if (actions[animationKey]) {
+        actions[animationKey].timeScale = 1
+        actions[animationKey].reset()
+        actions[animationKey].loop = THREE.LoopOnce
+        actions[animationKey].clampWhenFinished = true
+        actions[animationKey].syncWith(actions['Block']).play()
+        currentAnimRef.current = actions[animationKey]
+      }
+      //
+      if (actions2[animationKey]) {
+        actions2[animationKey].timeScale = 1
+        actions2[animationKey].reset()
+        actions2[animationKey].loop = THREE.LoopOnce
+        actions2[animationKey].clampWhenFinished = true
+        actions2[animationKey].syncWith(actions['Block']).play()
+      }
+      //
+      currentActionKey.current = animationKey;
+    }
+  }
+
+  const playBlocking = () => {
+    // mixer.stopAllAction()
+    // mixer2.stopAllAction()
+    console.log("will play block")
+    const animationKey = 'Block'
+    if (actions[animationKey]) {
+      actions[animationKey].timeScale = 1
+      actions[animationKey].reset()
+      actions[animationKey].fadeIn(0.2)
+      actions[animationKey].loop = THREE.LoopOnce
+      actions[animationKey].clampWhenFinished = true
+      actions[animationKey].play()
+    }
+    //
+    if (actions2[animationKey]) {
+      actions2[animationKey].timeScale = 1
+      actions2[animationKey].reset()
+      actions[animationKey].fadeIn(0.2)
+      actions2[animationKey].loop = THREE.LoopOnce
+      actions2[animationKey].clampWhenFinished = true
+      actions2[animationKey].play()
+    }
+
+    currentAnimRef.current = actions[animationKey]
+    currentActionKey.current = animationKey;
   }
 
   useEffect(() => {
@@ -82,54 +136,20 @@ export function UnitsSide(props: any) {
       mixer.stopAllAction()
       mixer2.stopAllAction()
       if (currentAction === 'MAGE') {
-        const animationKey = '1H_Melee_Attack_Slice_Horizontal'
-        if (actions[animationKey]) {
-          actions[animationKey].timeScale = 1
-          actions[animationKey].reset()
-          actions[animationKey].loop = THREE.LoopRepeat
-          actions[animationKey].clampWhenFinished = true
-          actions[animationKey].play()
-          currentAnimRef.current = actions[animationKey]
-        }
-        //
-        if (actions2[animationKey]) {
-          actions2[animationKey].timeScale = 1
-          actions2[animationKey].reset()
-          actions2[animationKey].loop = THREE.LoopRepeat
-          actions2[animationKey].clampWhenFinished = true
-          actions2[animationKey].play()
-        }
-        //
-        // move forward a bit
+        playBlocking()
         group.current.position.y += 1.5
-        group2.current.position.y += 1.5
+      group2.current.position.y += 1.5
       } else if (currentAction === 'KNIGHT') {
-        const animationKey = 'Block'
+       playBlocking()
+        //setPlaySlash(false)
+      group.current.position.y -= 1.5
+      group2.current.position.y -= 1.5
+      } else {
+        const animationKey = 'Idle'
         if (actions[animationKey]) {
           actions[animationKey].timeScale = 1
           actions[animationKey].reset()
           actions[animationKey].loop = THREE.LoopOnce
-          actions[animationKey].clampWhenFinished = true
-          actions[animationKey].syncWith(actions['Blocking']).play()
-          currentAnimRef.current = actions[animationKey]
-        }
-        //
-        if (actions2[animationKey]) {
-          actions2[animationKey].timeScale = 1
-          actions2[animationKey].reset()
-          actions2[animationKey].loop = THREE.LoopOnce
-          actions2[animationKey].clampWhenFinished = true
-          actions2[animationKey].syncWith(actions['Blocking']).play()
-        }
-        //setPlaySlash(false)
-        group.current.position.y -= 1.5
-        group2.current.position.y -= 1.5
-      } else {
-        const animationKey = 'Blocking'
-        if (actions[animationKey]) {
-          actions[animationKey].timeScale = 1
-          actions[animationKey].reset()
-          actions[animationKey].loop = THREE.LoopRepeat
           actions[animationKey].clampWhenFinished = true
           actions[animationKey].play()
         }
@@ -138,12 +158,13 @@ export function UnitsSide(props: any) {
         if (actions2[animationKey]) {
           actions2[animationKey].timeScale = 1
           actions2[animationKey].reset()
-          actions2[animationKey].loop = THREE.LoopRepeat
+          actions2[animationKey].loop = THREE.LoopOnce
           actions2[animationKey].clampWhenFinished = true
           actions2[animationKey].play()
           currentAnimRef.current = actions[animationKey]
         }
         //setPlaySlash(false)
+        currentActionKey.current = animationKey;
       }
     }
     //currentAnim.current = '1H_Melee_Attack_Slice_Diagonal'
@@ -164,6 +185,7 @@ export function UnitsSide(props: any) {
       actions2[animationKey].clampWhenFinished = true
       actions2[animationKey].syncWith(actions['Blocking']).play()
       currentAnimRef.current = actions[animationKey]
+      currentActionKey.current = animationKey;
       setBlockedSpell(false)
     }
   }, [blockedSpell])
@@ -181,6 +203,7 @@ export function UnitsSide(props: any) {
 
         if ((result === true || result2 === true) && currentAction === 'MAGE' && item.ref.current.getType() === 'skull') {
           isColliding = true
+          playSlash();
           item.ref.current?.destroy()
           increaseCurrentScore()
           break
@@ -211,16 +234,18 @@ export function UnitsSide(props: any) {
     }
   })
 
-  // useFrame(() => {
-  //   if (currentAnimRef.current && currentAction === 'MAGE') {
-  //     //console.log(currentAnimRef.current.time)
-  //     if (currentAnimRef.current.time < 1.0) {
-  //       setSlashSidesFrameTime(currentAnimRef.current.time)
-  //     }
-  //   } else {
-  //     setSlashSidesFrameTime(-1)
-  //   }
-  // })
+  useFrame(() => {
+    if (currentAnimRef.current && currentAction === 'MAGE') {
+      
+      //console.log(currentAnimRef.current.isRunning(), currentAnimRef.current, currentAnimRef.current._clip.name)
+      if (currentAnimRef.current.isRunning() === false && currentActionKey.current === "1H_Melee_Attack_Slice_Diagonal") {
+        console.log(currentActionKey.current, currentAnimRef.current)
+        actions[currentActionKey.current].fadeOut(0.2)
+        actions2[currentActionKey.current].fadeOut(0.2)
+        playBlocking()
+      }
+    }
+  })
 
   return (
     <>

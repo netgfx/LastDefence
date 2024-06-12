@@ -124,7 +124,7 @@ const Enemy = forwardRef((props: any, ref) => {
   }
 
   const animateEnemy = contextSafe(() => {
-    const velocity = gsap.utils.random(0.99, 0.8, true)
+    const velocity = gsap.utils.random(1.2, 0.99, true)
     const duration = velocity() // Duration based on initial velocity and window height
 
     // Define a custom ease function to simulate gravity
